@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8">
+        <title>公寓收租守則</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="game-container">
+            <img id="character-sprite" src="ml.png" class="hidden" alt="白凝冰">
+            <!-- 1. 遊戲大背景（遊戲開始後的背景） -->
+            <div id="bg-image"></div>
+
+            <!-- 2. 主選單 / 遊戲封面圖層 -->
+            <div id="start-menu">
+                <h1 id="game-title">公寓收租守則</h1>
+                <!-- 兩個按鈕放在中間偏下 -->
+                <div id="menu-buttons">
+                    <button class="menu-btn" onclick="startGame()">新遊戲</button>
+                    <!-- ★ 新增：繼續遊戲按鈕 (夾在中間，預設隱藏) -->
+                    <button id="continue-btn" class="menu-btn" onclick="continueGame()" style="display: none;">繼續遊戲</button>
+                    <button class="menu-btn" onclick="showAuthors()">組員介紹</button>
+                    <!-- ★ 新增：已解鎖的結局按鈕 (預設經由 JS 判斷顯示或隱藏) -->
+                    <button id="endings-btn" class="menu-btn" onclick="showEndings()" style="display: none;">已解鎖的結局</button>
+                </div>
+            </div>
+
+            <!-- 3. 作者介紹彈出視窗 -->
+            <div id="author-modal" class="hidden">
+                <div class="modal-content">
+                    <h2>── 製作團隊 ──</h2>
+                    <p>王品淮：劇本、美術、音效、編寫程式</p>
+                    <p>嚴崇瑋：簡報、策畫、編寫程式</p>
+                    <p>楊祐誠：簡報、編寫程式、AI配音</p>
+                    <button class="menu-btn" onclick="closeAuthors()">返回選單</button>
+                </div>
+            </div>
+
+            //背包系統
+            <button id="inventory-btn" class="menu-btn hidden" onclick="openInventory()">背包</button>
+
+            <div id="inventory-modal" class="hidden">
+                <h2>── 你的背包 ──</h2>
+                <div id="inventory-slots">
+                    <div class="inv-slot" onclick="viewItemDetail(0)"></div>
+                    <div class="inv-slot" onclick="viewItemDetail(1)"></div>
+                    <div class="inv-slot" onclick="viewItemDetail(2)"></div>
+                </div>
+                <button class="menu-btn inv-back-btn" onclick="closeInventory()">返回</button>
+            </div>
+
+            <div id="item-detail-modal" class="hidden">
+                <img id="item-detail-img" src="" alt="物品詳細圖片">
+                <button class="menu-btn inv-back-btn" onclick="closeItemDetail()">返回</button>
+            </div>
+            
+            //密碼系統
+            <div id="puzzle-modal" class="hidden">
+                <div id="puzzle-container">
+                    </div>
+            </div>
+
+            <!-- ★ 新增：已解鎖結局的彈出視窗 -->
+            <div id="endings-modal" class="hidden">
+                <div class="modal-content">
+                    <h2>── 已解鎖結局 ──</h2>
+                    <h3>全部有8個結局</h3>
+                    <div id="endings-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
+                        <!-- 這裡會由 JS 動態產生解鎖清單 -->
+                    </div>
+                    <button class="menu-btn" onclick="closeEndings()">返回選單</button>
+                </div>
+            </div>
+
+            <!-- 4. 遊戲進行中的選項按鈕區 -->
+            <div id="choices-container"></div>
+
+            <!-- 5. 下方對話框（預設隱藏） -->
+            <div id="dialog-box" class="hidden">
+                <div id="speaker-name">旁白</div>
+                <p id="dialog-text">文字載入中...</p>
+                <div id="next-indicator">▼</div>
+            </div>
+
+            <!-- ★ 新增：右下角解鎖提示通知元件 -->
+            <div id="toast-notification"></div>
+        </div>
+        <script src="game.js"></script>
+    </body>
+</html>
